@@ -110,7 +110,8 @@ void HaldenStarwindAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer
     if (! enabled)
         return;
 
-    juce::AudioBuffer<float> dry(buffer.getArrayOfWritePointers(), buffer.getNumChannels(), buffer.getNumSamples());
+    juce::AudioBuffer<float> dry(buffer.getNumChannels(), buffer.getNumSamples());
+    dry.makeCopyOf(buffer);
     juce::dsp::AudioBlock<float> block(buffer);
     juce::dsp::ProcessContextReplacing<float> context(block);
     hall.process(context);
